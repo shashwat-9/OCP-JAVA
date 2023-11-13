@@ -19,7 +19,7 @@ The JVM must be compatible with the Java platform that was used to develop the a
 
 1. Java is an object-oriented programing Language.
 2. It Works in Procedural Paradigm as well.
-3. Evolved to support Function Programming Paradigm(lambda, Functional Interface).
+3. Evolved to support Functional Programming Paradigm(lambda, Functional Interface).
 
 ## JVM
 

@@ -26,6 +26,44 @@ classname is the public class in the source file.
  - java cmd creates an instance of JVM that executes the bytecode.
 
 ```
-> java TestFile
+> java ClassFile
+```
+
+ - ClassFile is the class name of the starting point of program, containing the main method.
+ - Typically, a source code is compiled using javac and then class file is run using java cmd.
+ - But if the entire source code is contained in one file, we can omit the compilation and run the code in memory.
+ - If all the required classes are in one java file, then the java program can be run using :
+```
+java Prg.java
+```
+
+##### In order to run a single-file source-code program, the following conditions must be met:
+
+ - The single source file must contain all source code for the program.
+
+ - Although there can be several class declarations in the source file, the first class declaration in 
+the source file must provide the main() method; that is, it must be the entry point of the program.
+
+ - There must not exist class files corresponding to the class declarations in the single source file that are 
+accessible by the java command.
+
+ - Unlike the javac command, the name of the single source file (e.g., Demo-App.java) need not be a valid class name, 
+but it must have the .java extension. Also unlike the javac command, the java command allows several public classes 
+in the single source file (only public classes in the Demo-App.java file).
+
+```
+// File: Demo-App.java
+public class TestPoint3D {
+  // Implementation
+  // Provides the main() method and is the first class declaration in the file.
+}
+
+public class Point2D {
+  // Implementation
+}
+
+public class Point3D extends Point2D {
+  // Implementation
+}
 ```
 

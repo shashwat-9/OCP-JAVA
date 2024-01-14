@@ -33,6 +33,7 @@ classname is the public class in the source file.
  - Typically, a source code is compiled using javac and then class file is run using java cmd.
  - But if the entire source code is contained in one file, we can omit the compilation and run the code in memory.
  - If all the required classes are in one java file, then the java program can be run using :
+
 ```
 java Prg.java
 ```
@@ -49,7 +50,7 @@ accessible by the java command.
 
  - Unlike the javac command, the name of the single source file (e.g., Demo-App.java) need not be a valid class name, 
 but it must have the .java extension. Also unlike the javac command, the java command allows several public classes 
-in the single source file (only public classes in the Demo-App.java file).
+in the single source file.
 
 ```
 // File: Demo-App.java
@@ -66,4 +67,8 @@ public class Point3D extends Point2D {
   // Implementation
 }
 ```
+
+----------------------------------
+
+ - JShell is an interactive tool for learning java. Not in syllabus of OCP-Java.
 

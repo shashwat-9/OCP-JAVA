@@ -44,3 +44,36 @@ Integer literal can be represented into all the number systems - namely binary, 
  - hexadecimal - prefixed with '0x' or '0X'
 
 Suffix 'l' or 'L' of long type and - sign can be added regardless of the number system used.
+
+###### Representing Integers
+ - Integer data types can represent both positive and negative values.
+ - Value of Char types can be regarded as 16-bit unsigned integer.
+ - Java uses two's complement to store signed values of integer.
+ - In bit representation, the MSB(Most Significant Bit) represents the sign of the integer.
+
+###### Calculating two's complement
+ - A number's 2-s complement is used to represent a negative number.
+ - One's complement of a number is calculated by inverting all its bits in binary form. Represented by ~N.
+ - Two's complement of a number is : 
+
+```
+   -N = ~N + 1; // One plus one complement of the number is negative of that number
+```
+
+ - Even subtraction is considered as a sum of a number with another number's 2-s complement.
+ - As another matter of fact, byte, short, int, long are of size 8, 16, 32 and 64 bits.
+
+##### Floating points Literals
+This has two types, 1. Float 2. Double
+ - Default type for this literal is double, that can be explicitly designated by appending 'D' or 'd'.
+ - This literal can be assigned the type of float by appending with 'f' or 'F'.
+ - Floating point literal can also be represented in scientific notation with exponent('E' or 'e'). 
+```For e.g. - 1.95e3  = 1.95 * 10^3 = 1950```
+
+ - E.g. of floating point literal.  
+49., 49.0D, 49.0, 49D, 4.9e1, 4900e-2 etc represents double.  
+49.f, 4.9e1f, 49F etc represents float. 
+
+The decimal point(49.f/d can be represented as 49f/d) and exponent are optional.
+
+##### UnderScores in Numeric Literals

@@ -43,11 +43,15 @@ Integer literal can be represented into all the number systems - namely binary, 
  - octal - prefixed with '0'
  - hexadecimal - prefixed with '0x' or '0X'
 
-Suffix 'l' or 'L' of long type and - sign can be added regardless of the number system used.
+ - '-' sign can be added regardless of the number system used. The number representation is just value, and we add sign
+explicitly.
 
 ###### Representing Integers
  - Integer data types can represent both positive and negative values.
- - Value of Char types can be regarded as 16-bit unsigned integer.
+ - Can't assign a value out of the range for any integral types. Overflow and underflow calculations occur when the
+arithmetic calculation over int literals results in out of range for that literal.
+ - Value of Char types can be regarded as 16-bit unsigned integer. No cycle/overflow calculations for chars in java.
+Further any value out of the range (0 to 2^16 -1)assigned to char will lead to compile time error. 
  - Java uses two's complement to store signed values of integer.
  - In bit representation, the MSB(Most Significant Bit) represents the sign of the integer.
 
@@ -70,10 +74,50 @@ This has two types, 1. Float 2. Double
  - Floating point literal can also be represented in scientific notation with exponent('E' or 'e'). 
 ```For e.g. - 1.95e3  = 1.95 * 10^3 = 1950```
 
- - E.g. of floating point literal.  
-49., 49.0D, 49.0, 49D, 4.9e1, 4900e-2 etc represents double.  
+ - E.g. of floating point literal.
+49., 49.0D, 49.0, 49D, 4.9e1, 4900e-2, .49 etc represents double.  
 49.f, 4.9e1f, 49F etc represents float. 
 
 The decimal point(49.f/d can be represented as 49f/d) and exponent are optional.
 
 ##### UnderScores in Numeric Literals
+
+ - Underscores can be added to numerical literals to enhance readability.
+ - Any number of underscores can be added between digits of a numerical literal.
+ - This rules out underscores adjacent to the sign (+, -), the radix prefix (0b, 0B, 0x, 0X), the decimal point (.), 
+the exponent (e, E), and the data type suffix (l, L, d, D, f, F), as well as before the first digit and after the 
+last digit. Note that octal radix prefix 0 is part of the definition of an octal literal and is therefore considered 
+the first digit of an octal literal.
+ - valid 0_35(035) but not _035
+
+##### Boolean data type
+This data type represents the truth value and is represented by literals true and false.
+
+##### Character Literal
+It is quoted in single quotes('). All of these literals have a char data type.
+ - Represented by a 16 bit(2 byte) Unicode Character set.
+ - It subsumes 8 bit ISO-Latin-1 and 7 bit ASCII characters.
+ - A unicode character can be specified using 4 hexadecimal digit with a prefix '\u'(like '\u002a' etc).
+ - We can also use the escape sequence \ddd where d is an octal value, with \377(total 256 values including 0) maximum 
+value to represent characters.
+
+##### Escape Sequences
+ - Escape Sequences are special characters preceded by '\'(backslash), usually to change the cursor position in String.
+ - All of these have a unicode value and can be used to denote escape sequences.
+However, the Unicode values \u000a and \u000d should not be used to represent a newline and a carriage return in the 
+source code.
+
+
+|Escape sequence | Unicode value | Character                                     |
+|----------------|--------------|-----------------------------------------------|
+|\b              | \u0008       | Backspace (BS)                                |
+|\t              | \u0009       | Horizontal tab (HT or TAB)                    |
+|\n              | \u000a       | Linefeed (LF), also known as newline (NL)     |
+|\f              | \u000c       | Form feed (FF)                                |
+|\r              | \u000d       | Carriage return (CR)                          |
+|\s              | \u0020       | Space (SP)                                    |
+|\Line terminator| no unicode   | Line continuation in a text block             |
+|\'              | \u0027       | Apostrophe-quote, also known as single quote  |
+|\"              | \u0022       | Quotation mark, also known as double quote    |
+|\\              | \u005c       | Backslash                                     |
+

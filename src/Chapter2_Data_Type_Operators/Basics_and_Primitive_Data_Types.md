@@ -121,3 +121,50 @@ source code.
 |\"              | \u0022       | Quotation mark, also known as double quote    |
 |\\              | \u005c       | Backslash                                     |
 
+
+##### String Literal
+
+A sequence of characters enclosed within double quotes occurring on a single line.
+ - All String literal are objects of String class.
+ - Escape sequences and unicode values can appear in a String literal.
+ - '(single apostrophe) need not to escaped in a String literal but in a char ('\'')
+ - If a String is split up in multiple lines, it will throw compile time error.
+ - All unicode values can be used expect \u000a and \u000d.
+
+##### Whitespace
+
+Whitespace is a sequence of space, tab, form feed, line terminator(newline, carriage return or both CRLF).
+ - like separators, operators etc that helps in tokenizing a java program, whitespaces also helps in tokenization.
+
+##### Comments
+
+Used to put documentation in the code and is ignored by the compiler.
+Java provides three types of comments : 
+ - A Single line comment //
+ - A multiple line comment /**/
+ - A documentation(javadoc) comment. /** ...*/. Used by javadoc tool to generate HTML documents for the program.
+Tags like @author, @version can also be used with this format.
+ - Starting of comments(//, /*, /**) are not treated different to characters and hence nesting comments within comments
+gives compile time errors (as the ending comments */ doesn't end properly).
+
+#### Primitive Data Type
+![Primitive Data Type](./Resources/PrimitiveDataType.jpg)
+
+The primitive data type is divided into three categories:
+1. Integral type - represents signed integer of byte, short, int, long and unsigned char.
+ - byte is of 1 byte, short is 2 byte, int 4 byte, long 8 byte. And all of them are signed values using 2s complement.
+ - char is of 2 byte and is unsigned representing all 16 bit unicode character set.
+2. Floating-point types - represents fractional signed value.
+3. Boolean type - represents logical values.
+
+Each primitive type have a corresponding wrapper class.
+
+###### Floating point values
+Used to represent signed fractional values.
+ - Two types, double and float.
+ - zero can either be 0.0 or -0.0
+ - float is of 4 bytes, double is of 8 bytes. double is wider than float.
+ - Due to finite no of bits for representation, some values can be represented approximately.
+
+All primitive dataType have a corresponding Wrapper Class like Boolean, Byte, Short, Character, Integer, Long, Float, 
+Double.

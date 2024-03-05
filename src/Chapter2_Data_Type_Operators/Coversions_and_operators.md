@@ -59,3 +59,10 @@ results in valid arithmetic.
  - String conversions allow a value of any other type to be converted to a String type in the context of the string 
 concatenation operator +.
  - Unchecked conversions are permitted to facilitate operability between legacy and generic code.
+
+#### Type Conversion Contexts
+###### Assignment Context
+An assignment conversion converts the type of expression to the type of target variable.
+ - An expression(or its value) is assignable to the target variable, if the type of the expression can be converted to
+the type of the target variable by an assignment conversion.
+ - 

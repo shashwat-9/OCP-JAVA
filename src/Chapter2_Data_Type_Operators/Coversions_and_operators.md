@@ -61,8 +61,15 @@ concatenation operator +.
  - Unchecked conversions are permitted to facilitate operability between legacy and generic code.
 
 #### Type Conversion Contexts
+Conversions in each context occurs implicitly.
+ - Assignment Context
+ - Method Invocation
+ - Casting
+ - Numeric Promotion
+
 ###### Assignment Context
 An assignment conversion converts the type of expression to the type of target variable.
  - An expression(or its value) is assignable to the target variable, if the type of the expression can be converted to
 the type of the target variable by an assignment conversion.
- - 
+
+###### Method Invocation

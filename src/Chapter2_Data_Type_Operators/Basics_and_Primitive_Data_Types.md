@@ -49,9 +49,9 @@ explicitly.
 ###### Representing Integers
  - Integer data types can represent both positive and negative values.
  - Can't assign a value out of the range for any integral types. Overflow and underflow calculations occur when the
-arithmetic calculation over int literals results in out of range for that literal.
+arithmetic calculation(or type casting) over int literals results in out of range for that literal.
  - Value of Char types can be regarded as 16-bit unsigned integer. No cycle/overflow calculations for chars in java.
-Further any value out of the range (0 to 2^16 -1)assigned to char will lead to compile time error. 
+Further any value out of the range (0 to 2^16 -1)assigned to char will lead to compile time error.
  - Java uses two's complement to store signed values of integer.
  - In bit representation, the MSB(Most Significant Bit) represents the sign of the integer.
 

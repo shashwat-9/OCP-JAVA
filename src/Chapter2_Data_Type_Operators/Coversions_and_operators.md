@@ -124,3 +124,55 @@ Two types of numeric promotion context :
    - This means that the resulting type of the operands is at least int.
    - Binary numeric operator include arithmetic operator(+, -, %, *, /), relational (<, >, <=, =>), equality(==, !=) and
 conditional(? : ) - under certain circumstances.
+
+###### Precedence and associativity of operators
+
+| Array element access, member access, method invocation | [expression] . (args)                                 |
+|--------------------------------------------------------|-------------------------------------------------------|
+| Unary postfix operators                                | expression ++ expression--                            |
+| Unary prefix operators                                 | ~ ! ++expression --expression +expression -expression |
+| Unary prefix creation and cast                         | new (type)                                            |
+| Multiplicative                                         | * / %                                                 |
+| Additive                                               | + -                                                   |
+| Shift                                                  | << >> >>>                                             |
+| Relational                                             | < <= > >= instanceof                                  |
+| Equality                                               | == !=                                                 |
+| Bitwise/logical AND                                    | &                                                     |
+| Bitwise/logical XOR                                    | ^                                                     |
+| Bitwise/logical OR                                     |      |                                                |
+| Conditional AND                                        | &&                                                    |
+| Conditional OR                                         |   ||                                                  |
+| Conditional                                            | ?:                                                    |
+| Arrow operator                                         | ->                                                    |
+| Assignment                                             | = += -= *= /= %= <<= >>= >>>= &= ^= |=                |
+
+ - The table is in the order of higher to lower precedence.
+ - Operators in the same row have the same precedence.
+ - Parentheses () can override precedence.
+ - Precedence of operators define which operator will be evaluated first.
+ - Associativity is a tie-breaker in when operators of the same precedence are there in an expression.
+ - All binary operators, except for the relational and assignment operators, associate from left to right. 
+The relational operators are non-associative.
+ - Except for unary postfix increment and decrement operators, all unary operators, all assignment operators, 
+and the ternary conditional operator associate from right to left.
+
+##### Evaluation order of operands
+Operands(that may be expressions than plain literals) are evaluated before being operated.
+
+In general, the operands of operators are evaluated from left to right. The evaluation order also respects any 
+parentheses, and the precedence and associativity rules of operators.
+
+ - The left-hand operand of a binary operator is fully evaluated before the right-hand operand is evaluated.
+ - The left hand operand evaluation may influence the value of right hand operand.
+ - If the left-hand operand throws an error, then we can't assume the right side operand is evaluated.
+
+###### Operand Evaluation before Operation Execution
+ - Java guarantees that all operands of an operator are fully evaluated before the actual operation is performed. 
+ - This rule does not apply to the short-circuit conditional operators &&, ||, and ?:.
+ - An observation: all the operators are evaluated before any operation, no matter the precedence etc.
+
+##### Left-to-right evaluation of Argument list
+In a method or constructor invocation, each argument expression in the argument list is fully evaluated before 
+any argument expression to its right.
+ - All arguments are evaluated before getting passed to the method.
+ - If an argument is not evaluated completely, then we can't assume that the args to the right of it is also evaluated.

@@ -171,7 +171,7 @@ parentheses, and the precedence and associativity rules of operators.
  - This rule does not apply to the short-circuit conditional operators &&, ||, and ?:.
  - An observation: all the operators are evaluated before any operation, no matter the precedence etc.
 
-##### Left-to-right evaluation of Argument list
+###### Left-to-right evaluation of Argument list
 In a method or constructor invocation, each argument expression in the argument list is fully evaluated before 
 any argument expression to its right.
  - All arguments are evaluated before getting passed to the method.

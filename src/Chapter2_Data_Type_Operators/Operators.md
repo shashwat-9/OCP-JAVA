@@ -73,3 +73,70 @@ short s4 =  i5;   // Final value of i5 not determinable at compile time.
  - The discussion of numeric assignment conversions also applies to numeric parameter values at method invocation , 
 except for the narrowing conversions, which always require a cast.
  - Same goes for boxing/un-boxing assignments.
+
+#### Arithmetic Operators
+ - Operands are of numeric type(that includes char).
+ - Now floating point operations are strict, meaning they will give the same result on any jvm implementation.
+ - Earlier _strictfp_ used to enforce this behaviour.
+
+##### Arithmetic Operators precedence and associativity
+
+- The rows in the table below are in descending order of precedence.
+- The operators in the same row have the same precedence.
+- The unary operators have right associativity, and the binary operators have left associativity.
+
+| Type   | Operator1 | Operator2 | Operator3 |
+|--------|-----------|-----------|-----------|
+| Unary  | +         | -         |           |
+| binary | *         | /         | %         |
+|        | +         | -         |           | 
+
+##### Evaluation order in arithmetic expression
+ - Java guarantees that the operands are fully evaluated from left to right before an arithmetic binary operator is 
+applied.
+ - If an operand evaluation results in error, then subsequent operands are not evaluated.
+ - (a + b * c), here a is evaluated first, b second, c in the last, but the binary operator is applied as per the 
+precedence.
+
+##### Range of Numeric Values
+ - The range of numeric types are given by _MAX_VALUE_ and _MIN_VALUE_ in their respective Wrapper Class(es).
+ - Arithmetic operators are overloaded, that is, when any of the operand is floating point, then the evaluation is
+floating point type, else it is integer arithmetic.
+
+##### Integer Arithmetic
+ - ArithmeticException occurs when division or remainder is by zero(0).
+ - Integer arithmetic always returns a value that is in range, except the above case( and including cycle-addition).
+
+##### Floating point Arithmetic
+ - Adding or multiplying two very large floating point numbers result in an out-of-range value that is represented by 
+infinity.(This behaviour is different to that of integer arithmetic)
+ - Division by zero also returns infinity.
+ - Infinity could be + or -, represented by constants POSITIVE_INFINITY and NEGATIVE_INFINITY respectively in both Float
+and Double class.
+
+![FloatPoint](./Resources/FLoatingPoint.jpg)
+ - Underflow occurs when the result is between Double.MIN_VALUE and zero. It returns positive zero.
+ - Or the result is between -Double.MIN_VALUE and zero. Underflow then returns negative zero(-0.0).
+ - (-0.0 == 0.0), is true, that is negative and positive zeros are equal.
+
+ - Certain calculations have no results and are represented by NaN(Not a Number). Example include, division of zero by 
+zero, finding square root of -1 and other invalid calculations.
+ - NaN is represented by a constant in java.lang.Float or java.lang.Double
+ - Any operation involving NaN will produce NaN.
+ - Any comparison(except !=) involving NaN return false. Inequality (!=) comparison involving NaN always return true.
+ - A recommended way of checking whether a value is NaN or not, is to use the method isNaN(), in java.lang.Float or 
+java.lang.Double.
+ - Note, these are for floating point and not integer arithmetic.
+
+##### Unary Arithmetic Operators : -, +
+ - Unary (-) operator negates the numeric value of its operand. e.g. - -10, this results in 10. Space is required in between 
+to avoid using the decrement operator(--) on constant literal.
+ - Unary (+) has no effect on the evaluation on operand value.
+
+##### Multiplicative Binary Operators : * / %
+###### Multiplicative Operator : *
+ - It multiplies two numbers.
+###### Division Operator : /
+ - Division Operator is overloaded. The result is of type integral if both are integers and of floating point type if 
+atleast one is of floating point type.
+ - 

@@ -139,4 +139,21 @@ to avoid using the decrement operator(--) on constant literal.
 ###### Division Operator : /
  - Division Operator is overloaded. The result is of type integral if both are integers and of floating point type if 
 atleast one is of floating point type.
- - 
+ - ArithmeticException is thrown when integer division with zero is attempted.
+###### Remainder Operator : %
+ - This operator calculates the remainder.
+ - The remainder is calculated as x == (x / y) * y + (x % y). This way we can calculate the remainder of any combination
+of negative and positive numbers as dividend and divisor.
+E.g.
+ - -7 == (-7 / 5) * 5 + (-7 % 5); -2 == (-7 % 5);
+ - 7 == (7 / -5) * -5 + (7 % -5); 2 == (7 % -5);
+ - 7 == (-7 / -5) * -5 + (-7 % -5); 2 == (-7 % -5);
+ - 7 == (7 / 5) * 5 + (7 % 5); 2 == (7 % 5);
+
+ - The remainder can be negative only if the dividend is negative and the sign of divisor is irrelevant.
+ - ArithmeticException is thrown if divisor evaluates to zero.
+ - Operands of remainder operator can also be floating point.
+ - The floating-point remainder _r_ is defined by r == a - (b * q), a and b are dividend and divisor.
+###### Additive Binary Operators : +, -
+ - Includes + and - operator. + operator also acts as a String concatenation if any operand is String.
+###### Numeric Promotions in Arithmetic Expressions

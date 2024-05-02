@@ -157,3 +157,41 @@ E.g.
 ###### Additive Binary Operators : +, -
  - Includes + and - operator. + operator also acts as a String concatenation if any operand is String.
 ###### Numeric Promotions in Arithmetic Expressions
+ - Unary numeric promotion is applied to the single operand of urinary arithmetic operator + and -.
+ - When the type of operand is narrower than int, it is promoted to int.
+ - If the condition for implicit narrowing are not fulfilled, assigning int to a variable of a narrower type will 
+require a cast.
+```java
+byte b = 3;
+b = (byte) -b;
+```
+ - Binary numeric promotion is applied to operands of binary arithmetic operators. The result is always of type int or
+wider.
+ - Care must be exercised while assigning values resulting from binary operator, as with the above unary operator usage.
+```java
+short h = 40;   //narrowing
+h = h + 2;      //Error, as the rhs is of type int
+```
+ - The above assignment will require a cast.
+
+###### Arithmetic Compound Assignment Operators : *=, /=, %=. +=. -=
+ - A compound assignment has the following syntax _variable op= expression_
+ - With the following semantics : _variable = (type) ((variable) op (expression))_
+ - Compound assignment has the least priority and thus the expression is evaluated first.
+ - Because of the above semantics
+```java
+byte b = 2;
+b += 10;    //Will compile fine
+b = b + 10; //Will not compile, as the rhs is integer
+```
+###### The Binary String Concatenation Operator +
+ - The binary operator + is overloaded in sense that the operation performed is determined by the type of operand.
+ - If one of the operand is a String, the + concatenates the two strings.
+ - It might be necessary to perform a String conversion on the non-String operand before the String concatenation.
+A String conversion is performed on the non-String operand as follows:
+ - primitive data type operand is converted to text representation.
+ - Reference values are converted by calling toString() method.
+ - true, false and null have text representations that corresponds to their names.
+ - '+' follows the Left associativity. for e.g. 100 + '%' + "Hello" = "137Hello", as addition starts from left. Similarly,
+"sample " + 2 + 2 is "Sample 22". We can use parentheses to avoid any miscalculation.
+ - 

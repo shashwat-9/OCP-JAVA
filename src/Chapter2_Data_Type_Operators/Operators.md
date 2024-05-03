@@ -194,4 +194,5 @@ A String conversion is performed on the non-String operand as follows:
  - true, false and null have text representations that corresponds to their names.
  - '+' follows the Left associativity. for e.g. 100 + '%' + "Hello" = "137Hello", as addition starts from left. Similarly,
 "sample " + 2 + 2 is "Sample 22". We can use parentheses to avoid any miscalculation.
- - 
+ - Compiler uses temporary string objects to store the result of constant expression string concatenation.
+ - However, StringBuilder is used to find the result of string concatenation in non-constant string expression.

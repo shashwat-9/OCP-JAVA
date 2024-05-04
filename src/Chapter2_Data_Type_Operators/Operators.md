@@ -196,3 +196,11 @@ A String conversion is performed on the non-String operand as follows:
 "sample " + 2 + 2 is "Sample 22". We can use parentheses to avoid any miscalculation.
  - Compiler uses temporary string objects to store the result of constant expression string concatenation.
  - However, StringBuilder is used to find the result of string concatenation in non-constant string expression.
+
+##### Variable Increment and Decrement Operator ++. --
+ - There are two flavours of these operators, prefix and postfix.
+ - These operators can't be applied to final initialized variable.
+ - Prefix operators increments/decrements and stores the value in the variable and returns the incremented/decremented value.
+ - Postfix operators increments/decrements and stores the value in the variable and returns the original value.
+ - These operators can be applied to both primitive and Wrapper types.
+ - Binary numeric promotion and implicit narrowing with possibly boxing could be done in these operators.

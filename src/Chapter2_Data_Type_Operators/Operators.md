@@ -204,3 +204,14 @@ A String conversion is performed on the non-String operand as follows:
  - Postfix operators increments/decrements and stores the value in the variable and returns the original value.
  - These operators can be applied to both primitive and Wrapper types.
  - Binary numeric promotion and implicit narrowing with possibly boxing could be done in these operators.
+
+##### Boolean Expressions
+ - Boolean expressions can be formed using only relational operators, equality operators, boolean logical operators,
+conditional operator, the assignment operator and _instanceof_ operator.
+
+##### Relational Operators <. >, >=, <=
+ - These are binary operators and operands are __Numeric Expressions__. Binary numeric operation is applied to operands.
+Note, char is also a numeric expression.
+ - These operators are _non-associative_ meaning they must be used with logical and, or.
+
+##### Equality

@@ -215,3 +215,12 @@ Note, char is also a numeric expression.
  - These operators are _non-associative_ meaning they must be used with logical and, or.
 
 ##### Equality
+ - It can be classified into three categories - primitive data value equality, object reference equality, object value
+equality.
+###### primitive data value equality
+ - '==' and '!=' are compares equality and inequality.
+ - It can be used to compare both primitive and boolean values. Binary numeric promotion can be applied wherever necessary.
+ - Care must be exercised while comparing primitive floating point.
+###### Object reference equality
+ - equality '==' and inequality '!=' operator can be applied to reference variable to test whether they refer to the same object.
+ - The operand must be cast compatible, that is they can be casted to the other type, else compile time error will result.

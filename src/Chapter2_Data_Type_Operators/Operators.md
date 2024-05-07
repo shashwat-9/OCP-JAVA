@@ -224,3 +224,30 @@ equality.
 ###### Object reference equality
  - equality '==' and inequality '!=' operator can be applied to reference variable to test whether they refer to the same object.
  - The operand must be cast compatible, that is they can be casted to the other type, else compile time error will result.
+ - If operands are either a reference or null type, then only reference equality is checked.
+###### Object Value Equality
+ - There exist __equals__ method in object class, the default implementation returns true only if the object is compared
+with itself. Can be overridden to implement custom equality logic.
+ - Basically, if not overridden, the equals() method is object reference equality.
+ - String and wrapper classes overrides equals() method, so if the value is equal only then it will return true.
+
+##### Boolean logical Operators: !, ^, &, |
+ - These operators can be applied to boolean (or Boolean) operands, returning a boolean value.
+ - &, ^ and | can also be applied to integral operands to perform bitwise operations.
+ - Unboxing is applied to the operand values, if necessary. And both the operands are evaluated, unlike conditionals(&& ||).
+###### Operand evaluation for Boolean Logical Operators
+ - The operands are evaluated from left to right.
+ - For boolean expression, involving these operators, evaluation of all the operands is guaranteed.
+
+###### Boolean Logical Compound Assignment Operators: &=, ^= and |=
+ - Left hand operand must be boolean variable and the right side operand must be boolean expression.
+ - Can also be applied to integral operand for bitwise operation.
+```java
+//equivalent expressions but different results
+b3 &= b1 | b2;          // (2) false, b3 = (b3 & (b1 | b2))
+b3 = b3 & b1 | b2;      // (3) true,  b3 = ((b3 & b1) | b2)
+```
+
+##### Conditional Operators : && ||
+Conditional operators && and || are similar to logical counterparts & and |, except their evaluation is short-circuited,
+ - Unlike logical counterparts & and |, the conditional operators && and || is applied to boolean(or Boolean) operands only.

@@ -129,4 +129,68 @@ customizable Serialization is used for serializing such constituents.
                        throws IOException, ClassNotFoundException;
 ```
  - These methods are not part of any interface. Although private, these methods can be called by the JVM.
- - 
+ - The first method above is called on the object when its serialization starts. The serialization procedure uses the 
+reference value of the object to be serialized that is passed in the call to the __ObjectOutputStream.writeObject()__ method,
+which in turn calls the first method above on this object.
+ - The second method above is called on the object created when the deserialization procedure is initiated by the call to
+the __ObjectInputStream.readObject()__ method.
+ - In order to implement custom deserialization, we write the following lines of code in the writeObject method discussed
+above. The first method does the normal serialization of the current object. The second method writes the field value of the __not serializable__
+object, which is also declared transient in order to avoid java.io.NotSerializableException exception. The second line of
+code is doing the customization of serialization and the same order will be followed in the deserialization process.
+```
+   oos.defaultWriteObject();               // Method in the ObjectOutputStream class
+   oos.writeInt(wheel.getWheelSize());     // Method in the ObjectOutputStream class
+```
+ - For custom deserialization, the InputStream is read in the same order as it was written out inside the readObject 
+method discussed above.
+```
+   ois.defaultReadObject();                // Method in the ObjectInputStream class
+   int wheelSize = ois.readInt();          // Method in the ObjectInputStream class
+   this.wheel = new Wheel(wheelSize);
+```
+ - Again, code for customization can be called both before and after the call to the defaultReadObject() method, as long
+as it is in correspondence with the customization code in the writeObject() method.
+
+##### Serialization and Inheritance
+ - If the all the superclasses are serializable for a class then the state of the object during deserialization is same 
+as during serialization.
+ - This is because the normal Object creation and initialization procedure using constructors is __not__ run during 
+deserialization.
+ - If a superclass is not serializable then the object is created using no-arg constructor or default constructor for all
+the non-Serializable class. And since the super constructors may have initialized the state of teh object, the object state
+at deserialization differs.
+ - If the non-serializable superclass does not provide a non-argument constructor or the default constructor, a 
+java.io.InvalidClassException is thrown during deserialization.
+
+###### Superclass is serializable
+ - If the superclass is serializable, then any object of a subclass(even if it does not implement serializable interface)
+is also serializable.
+
+###### Superclass is Not Serializable
+ - If the superclass is not serializable, then the super constructors are called during deserialization that could set some
+fields to null, and hence before-after state of serialization-deserialization will not match.
+ - If the default constructor is not provided, then java.io.InvalidClassException exception is thrown.
+ - So the crux is, the superclass should be serializable or should provide no-arg constructor to avoid the exception.
+
+##### Serialization and Versioning
+ - The class versioning is required when a class is serialized using one class definition and deserialized using another
+class definition.
+ - If we use different class definition for serializing and deserializing respectively.InvalidClassException is thrown at
+runtime.
+ - serialVersionUID is a field in a serializable class, which is automatically assigned a value based on the definition
+or can be assigned explicitly by the user as below :
+```
+   static final long serialVersionUID = 100L;            // Appropriate value.
+```
+ - SerialVersionUID is also stored in the serialized object(though static members aren't serialized, this one is an exception)
+, which is compared with the deserializing class serialVersionUID
+ - If not provided serialVersionUID is implicitly generated. If we define it ourselves, we can control what happens at 
+deserialization. Maybe we can keep the serialVersionUID same for two different definitions of classes for deserialization
+if it is not deemed that older streamed objects are no longer compatible for deserialization.
+ - For e.g., if we've two Item classes with same serialVersionUID, one having only price field and other also having 
+weight field. If we serialize an object with the first class and deserialize it with later one, the deserialization will 
+be successful with weight field initialized with 0 value and the other matching fields having the same value.
+ - But different SerialVersionUID will cause deserialization error. It is the best practice to use SerialVersionUID with
+serializable classes.
+

@@ -101,3 +101,55 @@ is well formed.
     // Path --> URI, using the Path.toUri() instance method.
     URI pathToUri = uriToPath1.toUri();    // file:///a/b/c/d
 ```
+
+### Working with Path Objects
+ - java.nio.file.Path interface provides various methods to deal with the Path Objects, most of which perform syntactic
+operations on the path string contained in a Path Object.
+ - A Path Object is immutable, and thus these methods return new objects. The path mayn't point to an existing resource.
+```
+    String toString();  //Returns the text representation of this path
+    
+    boolean isAbsolute();   //Determines whether this path is an absolute path or not.
+
+    FileSystem getFileSystem(); //Returns the file system that created this object. Each Path object is created with 
+respect to a file system.
+
+    Path getFileName(); //Returns the name of the directory entry denoted by this path as a Path object— that is, the 
+last name element in this path which denotes either a file or a directory.
+
+    Path getParent();   //Returns one hierarchy up of the current path or null if not possible(relative or denotes the
+root component.
+
+    Path getRoot(); //retuns root or null if not possible
+
+    int getNameCount(); //Returns the number of name elements in the path, where root name element is not counted.
+    
+    Path getName(int index);    //Name elements index starts from 0 and goes till n - 1 (where n is the return value of
+    getNameCount())
+    
+    Path subPath(int beginIndex, int endIndex);     //beginIndex is inclusive but endIndex is exclusive. Illegal indices 
+will result in an Illegal-ArgumentException
+
+    boolean startsWith(Path other)
+    default boolean startsWith(String other)
+    // Determines whether this path starts with either the given path or Path object constructed from given other string.
+    
+    boolean endsWith(Path other)
+    default boolean endsWith(String other)
+    //Same as above but for end of path
+```
+
+##### Converting Path Objects
+```
+    Path toAbsolutePath()
+    //Returns a Path object representing the absolute path of this Path object.
+    If the path is a relative path, it is appended to a absolute path of the current directory. If not, then it will just
+    return the path object.
+    
+    Path normalize();
+    // Eliminated redundant name elements like '.' and 'dir/..' from the Path String.
+    
+    Path resolve(Path other)
+    default Path resolve(String other)
+
+```

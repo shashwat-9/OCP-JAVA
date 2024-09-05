@@ -151,5 +151,58 @@ will result in an Illegal-ArgumentException
     
     Path resolve(Path other)
     default Path resolve(String other)
+    // If the argument is absolute, it returns the argument object. If the argument path is relative, it gets appended to
+    the current path. Resulting path is not normalized and the paths need not to exist
+    
+    default Path resolveSibling(Path other)
+    default Path resolveSibling(String other)
+    // It is useful when we want the path of another entry at the same location. So basically, the last name element is
+    replaced with the param path string. If the current path doesn't have a parent, it returns the param Path object.
+    
+    Path relativize(Path other)
+    // It can be constructed only when both the object represents either relative or absolute path.
+    If this path is /w/x and the given path is /w/x/y/z, the resulting relative path is y/z. That is, the given path 
+    /w/x/y/z and the resulting relative path y/z represent the same directory entry.
+    So, basically relativize is inverse of resolve. Relative path of /c from /a/b is ../../c
+
+    Path toRealPath(LinkOption... options) throws IOException
+    //  It converts the path to an absolute path and removes any redundant elements, and does not follow symbolic links 
+    if the enum constant Link-Option.NOFOLLOW_LINKS is specified
 
 ```
+
+##### Converting a Path to an Absolute Path
+ - toAbsolutePath() method converts the path in the object into the absolute path.
+ - If the path in the object is absolute itself, it will be returned, and if relative, it will be appended to the path of 
+current directory.
+
+##### Normalizing a Path
+ - If the '..' is there without any prefix, it will be kept because removing it will cause a incorrect path
+ - If only '.' is there, it will be removed leading to an empty string.
+
+#### Link Option
+ - The enum type __LinkOption__ defines how symbolic links should be handled by a file operation. It defines only one constant
+__NOFOLLOW_LINK__, which if defined in a method then symbolic links are not followed by the methods.
+ - The enum type LinkOption implements both the CopyOption interface and OpenOption interface.
+ - __NOFOLLOW_LINK__ means the link to the symlink won't be referred to the actual directory entry.
+
+##### Converting a path to a real path
+ - The __toRealPath__ method of Path interface converts the Path specified to its absolute path.
+ - The name elements in the path must exist else IOException is throw.
+ - java.nio.file.LinkOption ia variable arity param in this method which if not specified then symbolic links are followed
+to their final target.
+
+The steps followed when toRealPath() is called :
+1. If this path is relative, it will be converted to absolute first. The parent directory will be the current directory.
+2. Then it is normalized
+3. If LinkOption.NOFOLLOW_LINKS is specified, any symbolic links are not followed.
+
+
+#### Comparing Path Objects
+ - The methods use the path string to compare without eliminating any redundancies.
+```
+    boolean equals(Object other)
+    int compareTo(Path other)
+```
+ - A Path object implements the Comparable<Path> interface. This method compares two path strings lexicographically 
+according to the established contract of this method. It means paths can be compared, searched, and sorted.

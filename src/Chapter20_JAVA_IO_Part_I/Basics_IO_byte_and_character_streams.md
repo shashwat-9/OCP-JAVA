@@ -49,7 +49,7 @@ the buffer automatically.
    - Read and write operations on streams are blocking operations - they don't return until the operation is completed.
    - Many methods in java.io package throws checked IOException. A calling method therefore must catch or throws.
 
-![ByteStreamHierarchy](/Resources/ByteStreamHierarchy.jpg)
+![ByteStreamHierarchy](./Resources/ByteStreamHierarchy.jpg)
 #### File Streams
 FileInputStream and FileOutputStream are low-level stream that are connected to files.
 
@@ -111,7 +111,7 @@ internal Unicode characters.
  - The same character encoding that was used to write the characters must be used to read those characters.
  - The java.nio.charset.Charset class represents charsets.
 
-![CharacterStream](/Resources/CharacterStreamHierarchy.jpg)
+![CharacterStream](./Resources/CharacterStreamHierarchy.jpg)
 
 ```
    static Charset forName(String charsetName)

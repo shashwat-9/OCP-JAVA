@@ -187,9 +187,10 @@ The following method interrupts the thread on which it is invoked :
 
 
 ##### Thread coordination
-- The methods wait(), notify()/notifyAll() are used for low-level thread coordination, are error-prone and difficult to get right and should be avoided in favour of the high-level concurrency support provided by the java.util.concurrent package.
-- Waiting and notifying provides coordination between threads that synchronize on the same object - also called data access synchronization. These methods are inherited by all Objects.
-- These methods can only be executed on an object whose lock the thread holds,(i.e. in synchronized code), otherwise the call will result in __IllegalMonitorStateException__ .
+- The methods wait(), notify()/notifyAll() are used for low-level thread coordination, are error-prone and challenging to get right and should be avoided in favor of the high-level concurrency support provided by the java.util.concurrent package.
+- Waiting and notifying provides coordination between threads that synchronize on the same object - also called data access synchronization. All Objects inherit these methods.
+- These methods can only be executed on an object whose lock the thread holds,(i.e. in synchronized code), otherwise the call will result in __IllegalMonitorStateException__.
+- The object releases the lock of the object and transits itself into WAITING or TIMED_WAITING, based on whether wait() or wait(time) is called.
 ```
    final void wait(long timeout) throws InterruptedException
    final void wait(long timeout, int nanos) throws InterruptedException
@@ -209,4 +210,52 @@ The following method interrupts the thread on which it is invoked :
 - The thread leaves the RUNNING substate and transits to the __WAITING__ or __TIMED_WAITING__ state, depending on whether a timeout was specified.
 - The thread releases the ownership of the object lock. Transitioning to a waiting state and releasing the object lock are completed as one atomic(non-interruptible) operation.
 - The waiting thread only releases the lock of the object on which wait() method was invoked, and does not releases any other object lock that it might hold.
-- 
+- Each object has a wait set containing threads waiting for notification. Threads in a waiting state are grouped according to the object whose wait() method they invoked.
+- A thread in a waiting state can be awakened by the occurrence of any one of these events:
+1. Another thread invokes the notify() method on the object of the waiting thread, and the waiting thread is selected as the thread to be awakened.
+2. The waiting thread times out if it was a timed wait.
+3. Another thread interrupts the waiting thread.
+4. A spurious wakeup occurs.
+
+##### Notify
+ - Invoking the notify() method on an object wakes up a single thread that is waiting for the lock of this object. 
+The selection of a thread to awaken is dependent on the thread policies implemented by the JVM.
+ - On being notified, a waiting thread first transits to the BLOCKED state to acquire the lock on the object, and not directly to the READY substate of the RUNNABLE state.
+ - The thread is also removed from the wait set of the object. Note that the object lock is not released when the notifying thread invokes the notify() method. 
+ - The notifying thread releases the lock at its own discretion, and the awakened thread will not be able to run until the notifying thread releases the object lock.
+ - When the notified thread obtains the object lock, it is enabled for execution, waiting in the READY substate for its turn to execute again. 
+Finally, when it does execute, the call to the wait() method returns and the thread can continue with its execution.
+ - The threads transitioning from WAITING to BLOCKED have no privileges, and must compete with any other threads blocked for lock acquisition.
+ - A call to the notify() method has no effect if there are no threads in the wait set of the object.
+ - In contrast to the notify() method, the notifyAll() method wakes up all threads in the wait set of the shared object. 
+ - They will all transit to the BLOCKED state, and contend for the object lock as explained earlier.
+ - It should be stressed that a program should not make any assumptions about the order in which threads awaken in response to the notify() or notifyAll() method, or transit to the BLOCKED state for lock acquisition.
+ - If timeout is specified in the wait method, the awakened thread has no way of knowing whether it was timed out or awakened by one of the notification methods.
+
+##### Interrupt waking
+ - By calling the _interrupt_ method of the thread, by another thread, the thread goes to the BLOCKED state and whenever it gets a chance to run, it results in an InterruptedException.
+
+##### Spurious WakeUp
+ - In very rare cases, a thread in a waiting state is awakened by what is called a spurious wakeup, which is not due to familiar events like being notified, timed out, or interrupted.
+ - But due to deep-level system signals warranting a wakeup call to the waiting threads. 
+ - The condition on which the thread was waiting might not have been fulfilled when the thread wakes up from a spurious wakeup, and should therefore be rechecked when the thread gets to run. 
+ - This is done by testing the condition in a loop that contains the wait() call, as the thread can go right back to waiting if the condition is not satisfied.
+```
+while (conditionNotSatisfied()) {
+  ...
+  wait();
+  ...
+}
+// Proceed ...
+```
+
+##### Joining
+ - A thread can invoke the overloaded method join() (from the Thread class) on another thread in order to wait for the other thread to complete its execution before continuing.
+ - If t1 calls join on t2, t1 waits for the completion of t2, if not completed, if already completed then no effect is observed.
+ - Depending on whether timeout is specified or not, the state of the thread could be __WAITING__ or __TIMED_WAITING__.
+ - Based on thread completion or getting timed_out or interrupted, the thread transits to __READY__ substate.
+
+##### BLOCKED FOR IO
+ - A running thread, on executing a blocking operation requiring a resource (like a call to an I/O method), will transit to the BLOCKED state. 
+ - The getState() method on this thread will return the value Thread.State.BLOCKED. When the thread can complete the blocking operation, it proceeds to the READY substate.
+ - 
